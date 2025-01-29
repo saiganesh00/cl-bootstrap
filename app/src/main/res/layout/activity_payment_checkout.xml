@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <!-- Top Bar -->
+    <ImageButton
+        android:id="@+id/backButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:background="?attr/selectableItemBackgroundBorderless"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:tint="#6b3cf3" />
+
+    <TextView
+        android:id="@+id/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:text="Payment"
+        android:textColor="#1A1A1A"
+        android:textSize="20sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintBottom_toBottomOf="@id/backButton"
+        app:layout_constraintStart_toEndOf="@id/backButton"
+        app:layout_constraintTop_toTopOf="@id/backButton" />
+
+    <!-- Payment Info Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/paymentCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="4dp"
+        app:layout_constraintTop_toBottomOf="@id/backButton">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Campus Creation Fee"
+                android:textColor="#1A1A1A"
+                android:textSize="18sp"
+                android:fontFamily="sans-serif-medium" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="One-time payment to create your campus"
+                android:textColor="#666666"
+                android:textSize="14sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="₹1,000"
+                android:textColor="#6b3cf3"
+                android:textSize="32sp"
+                android:fontFamily="sans-serif-medium" />
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Payment Methods -->
+    <TextView
+        android:id="@+id/paymentMethodsTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="32dp"
+        android:text="Select Payment Method"
+        android:textColor="#1A1A1A"
+        android:textSize="16sp"
+        android:fontFamily="sans-serif-medium"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymentCard" />
+
+    <!-- UPI Option -->
+    <RadioGroup
+        android:id="@+id/paymentMethodsGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="24dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toBottomOf="@id/paymentMethodsTitle">
+
+        <RadioButton
+            android:id="@+id/upiOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/radio_selector"
+            android:button="@null"
+            android:drawableEnd="@drawable/ic_upi"
+            android:padding="16dp"
+            android:text="UPI"
+            android:checked="true"
+            android:textColor="#1A1A1A"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/cardOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/radio_selector"
+            android:button="@null"
+            android:drawableEnd="@drawable/ic_card"
+            android:padding="16dp"
+            android:text="Credit/Debit Card"
+            android:textColor="#1A1A1A"
+            android:textSize="16sp" />
+
+        <RadioButton
+            android:id="@+id/netBankingOption"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/radio_selector"
+            android:button="@null"
+            android:drawableEnd="@drawable/ic_bank"
+            android:padding="16dp"
+            android:text="Net Banking"
+            android:textColor="#1A1A1A"
+            android:textSize="16sp" />
+    </RadioGroup>
+
+    <!-- Pay Button -->
+    <Button
+        android:id="@+id/payButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="24dp"
+        android:background="@drawable/primary_button_background"
+        android:text="Pay ₹1,000"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:padding="16dp"
+        app:layout_constraintBottom_toBottomOf="parent" />
+
+    <!-- Wave Background -->
+    <View
+        android:id="@+id/waveBackground"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:background="@drawable/wave_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:visibility="gone"
+        app:layout_constraintHeight_percent="0.15" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

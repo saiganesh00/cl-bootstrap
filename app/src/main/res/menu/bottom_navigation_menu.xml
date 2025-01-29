@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/timeline"
+        android:icon="@drawable/ic_home"
+        android:title="Home" />
+    <item
+        android:id="@+id/clubs"
+        android:icon="@drawable/clubs_icon"
+        android:title="Clubs" />
+    <item
+        android:id="@+id/create"
+        android:icon="@drawable/ic_add_circle"
+        android:title="Create" />
+    <item
+        android:id="@+id/profile"
+        android:icon="@drawable/ic_search"
+        android:title="Profile" />
+    <item
+        android:id="@+id/menu"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+</menu>

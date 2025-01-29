@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+
+    <!-- Background Circle -->
+    <path
+        android:fillColor="#E8E3FC"
+        android:pathData="M40,40m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0" />
+
+    <!-- Envelope Base -->
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M25,30h30a4,4 0 0,1 4,4v16a4,4 0 0,1 -4,4h-30a4,4 0 0,1 -4,-4v-16a4,4 0 0,1 4,-4z" />
+
+    <!-- Envelope Top -->
+    <path
+        android:fillColor="#5632d9"
+        android:pathData="M21,34l19,12l19,-12" />
+
+    <!-- Sparkles -->
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M55,25l4,-4l-4,-4l-4,4z"
+        android:alpha="0.6" />
+    
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M25,55l3,-3l-3,-3l-3,3z"
+        android:alpha="0.6" />
+
+    <!-- Check Mark -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="2.5"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M32,40l6,6l10,-10" />
+</vector>

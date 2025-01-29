@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="120dp"
+    android:height="120dp"
+    android:viewportWidth="120"
+    android:viewportHeight="120">
+    
+    <!-- Email Background -->
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M60,60m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0"
+        android:alpha="0.1"/>
+    
+    <!-- Email Envelope -->
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M35,45L85,45A5,5 0,0 1,90 50L90,70A5,5 0,0 1,85 75L35,75A5,5 0,0 1,30 70L30,50A5,5 0,0 1,35 45z"/>
+    
+    <!-- Email Top Flap -->
+    <path
+        android:fillColor="#5632d9"
+        android:pathData="M30,50L60,65L90,50"/>
+    
+    <!-- Sparkles -->
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M95,35l5,-5l-5,-5l-5,5z"
+        android:alpha="0.6"/>
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M25,85l4,-4l-4,-4l-4,4z"
+        android:alpha="0.6"/>
+    <path
+        android:fillColor="#6b3cf3"
+        android:pathData="M85,90l3,-3l-3,-3l-3,3z"
+        android:alpha="0.6"/>
+</vector>

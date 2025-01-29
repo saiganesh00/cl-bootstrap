@@ -1,0 +1,287 @@
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: system-ui, -apple-system, sans-serif;
+    background: linear-gradient(to bottom, #6b3cf3, #8561f2);
+    min-height: 100vh;
+}
+
+/* Splash Screen */
+.splash-screen {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    z-index: 50;
+}
+
+.content-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: scale(0.95);
+    animation: scaleIn 0.5s cubic-bezier(0.4, 0, 0.2, 1) forwards 0.2s;
+}
+
+.logo-container {
+    position: relative;
+    width: 176px;
+    height: 140px;
+}
+
+.logo-container svg {
+    width: 100%;
+    height: 100%;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.2));
+}
+
+.logo-path {
+    stroke: white;
+    stroke-width: 2.48231;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    fill: none;
+    opacity: 0;
+}
+
+.logo-path:nth-child(1) {
+    animation: 
+        fadeIn 0.1s ease forwards,
+        drawPath 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards;
+}
+
+.logo-path:nth-child(2) {
+    animation: 
+        fadeIn 0.1s ease forwards 0.3s,
+        drawPath 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.3s;
+}
+
+.logo-path:nth-child(3) {
+    animation: 
+        fadeIn 0.1s ease forwards 0.6s,
+        drawPath 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.6s;
+}
+
+.logo-path:nth-child(4) {
+    animation: 
+        fadeIn 0.1s ease forwards 0.9s,
+        drawPath 1.2s cubic-bezier(0.76, 0, 0.24, 1) forwards 0.9s;
+}
+
+.glow-effect {
+    position: absolute;
+    inset: -20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    filter: blur(2rem);
+    animation: glow 3s ease-in-out infinite;
+}
+
+.logo-circle {
+    position: relative;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    padding: 2rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 
+        0 25px 50px -12px rgba(0, 0, 0, 0.25),
+        inset 0 0 20px rgba(255, 255, 255, 0.2);
+}
+
+.logo-circle svg {
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.3));
+}
+
+.text-content {
+    text-align: center;
+    margin-top: -5px;
+    opacity: 0;
+    transform: translateY(30px);
+    animation: slideUp 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards 2.2s;
+}
+
+.text-content h1 {
+    font-size: 3rem;
+    font-weight: bold;
+    color: white;
+    letter-spacing: 0.05em;
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.text-content p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1.125rem;
+}
+
+.text-path {
+    font-size: 2.5rem;
+    font-weight: bold;
+    fill: none;
+    stroke: white;
+    stroke-width: 2;
+    stroke-dasharray: 1000;
+    stroke-dashoffset: 1000;
+    opacity: 0;
+    transform-origin: center;
+    animation: 
+        fadeIn 0.1s ease forwards 1.8s,
+        drawTextStroke 1s cubic-bezier(0.76, 0, 0.24, 1) forwards 1.8s,
+        glowText 0.7s ease-out forwards 2.8s;
+}
+
+/* Main Content */
+.main-content {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #f3f4f6;
+}
+
+.hidden {
+    display: none;
+}
+
+/* Animations */
+@keyframes fadeInBackground {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+@keyframes scaleIn {
+    to {
+        transform: scale(1);
+    }
+}
+
+@keyframes glow {
+    0%, 100% {
+        opacity: 0.5;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes revealText {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes drawPath {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes fadeIn {
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes float {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 0.8;
+        transform: scale(1.1);
+    }
+    50% {
+        opacity: 0.4;
+        transform: scale(1.2);
+    }
+}
+
+@keyframes slideUp {
+    0% {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes fadeInMain {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fillText {
+    from {
+        fill: transparent;
+    }
+    to {
+        fill: white;
+    }
+}
+
+@keyframes drawTextStroke {
+    0% {
+        stroke-dashoffset: 1000;
+        filter: drop-shadow(0 0 0 rgba(255, 255, 255, 0));
+    }
+    100% {
+        stroke-dashoffset: 0;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+    }
+}
+
+@keyframes glowText {
+    0% {
+        fill: transparent;
+        filter: drop-shadow(0 0 2px rgba(255, 255, 255, 0.3));
+        transform: scale(1);
+    }
+    20% {
+        fill: white;
+        filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.8));
+        transform: scale(1.05);
+    }
+    100% {
+        fill: white;
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+        transform: scale(1);
+    }
+}
