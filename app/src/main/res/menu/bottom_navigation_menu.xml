@@ -2,7 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item
         android:id="@+id/timeline"
-        android:icon="@drawable/ic_home"
+        android:icon="@drawable/ic_home_line"
         android:title="Home" />
     <item
         android:id="@+id/clubs"
@@ -10,14 +10,14 @@
         android:title="Clubs" />
     <item
         android:id="@+id/create"
-        android:icon="@drawable/ic_add_circle"
+        android:icon="@drawable/ic_add_line"
         android:title="Create" />
     <item
         android:id="@+id/profile"
-        android:icon="@drawable/ic_search"
+        android:icon="@drawable/ic_profile_line"
         android:title="Profile" />
     <item
         android:id="@+id/menu"
-        android:icon="@drawable/ic_menu"
+        android:icon="@drawable/ic_menu_line"
         android:title="Menu" />
 </menu>

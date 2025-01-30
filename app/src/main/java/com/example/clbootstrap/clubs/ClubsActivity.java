@@ -5,23 +5,23 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.view.MenuItem;
+import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.android.material.card.MaterialCardView;
 import com.example.clbootstrap.R;
 import com.example.clbootstrap.timeline.TimelineActivity;
+import com.example.clbootstrap.admin.AdminGridActivity;
 
 public class ClubsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private ViewPager2 imageSlider;
     private Handler sliderHandler;
     private Runnable sliderRunnable;
-    private boolean isSliderMovingRight = true;
     private final int[] images = {
-        R.drawable.club_image_1,
-        R.drawable.club_image_2,
-        R.drawable.club_image_3,
-        R.drawable.club_image_4
+        R.drawable.welcome_image,
+        R.drawable.create_club
     };
 
     @Override
@@ -31,56 +31,53 @@ public class ClubsActivity extends AppCompatActivity {
 
         bottomNavigation = findViewById(R.id.bottomNavigation);
         imageSlider = findViewById(R.id.imageSlider);
+        MaterialCardView adminServicesCard = findViewById(R.id.adminServicesCard);
         
         setupBottomNavigation();
         setupImageSlider();
+
+        // Set click listener for admin services card
+        if (adminServicesCard != null) {
+            adminServicesCard.setOnClickListener(v -> {
+                Intent intent = new Intent(this, AdminGridActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            });
+        }
     }
 
     private void setupImageSlider() {
         ImageSliderAdapter adapter = new ImageSliderAdapter(images);
         imageSlider.setAdapter(adapter);
-        imageSlider.setOffscreenPageLimit(3);
         
-        // Set page transformer for smooth transition
-        float nextItemVisiblePx = getResources().getDimensionPixelSize(R.dimen.viewpager_next_item_visible);
-        float currentItemHorizontalMarginPx = getResources().getDimensionPixelSize(R.dimen.viewpager_current_item_horizontal_margin);
-        float pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx;
-        ViewPager2.PageTransformer pageTransformer = (page, position) -> {
-            page.setTranslationX(-pageTranslationX * position);
-            page.setScaleY(1 - (0.25f * Math.abs(position)));
-            page.setAlpha(0.25f + (1 - Math.abs(position)));
-        };
-        imageSlider.setPageTransformer(pageTransformer);
-        
-        // Auto scroll every 2.5 seconds
+        // Auto slide functionality
         sliderHandler = new Handler(Looper.getMainLooper());
         sliderRunnable = new Runnable() {
             @Override
             public void run() {
                 int currentPosition = imageSlider.getCurrentItem();
-                if (isSliderMovingRight) {
-                    if (currentPosition == images.length - 1) {
-                        isSliderMovingRight = false;
-                        imageSlider.setCurrentItem(currentPosition - 1);
-                    } else {
-                        imageSlider.setCurrentItem(currentPosition + 1);
-                    }
-                } else {
-                    if (currentPosition == 0) {
-                        isSliderMovingRight = true;
-                        imageSlider.setCurrentItem(currentPosition + 1);
-                    } else {
-                        imageSlider.setCurrentItem(currentPosition - 1);
-                    }
-                }
-                sliderHandler.postDelayed(this, 2500); // 2.5 seconds
+                int nextPosition = (currentPosition + 1) % images.length;
+                imageSlider.setCurrentItem(nextPosition, true);
+                sliderHandler.postDelayed(this, 3000);
             }
         };
+
+        // Add page change callback
+        imageSlider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                super.onPageSelected(position);
+                // Reset the auto-scroll timer when user manually changes page
+                sliderHandler.removeCallbacks(sliderRunnable);
+                sliderHandler.postDelayed(sliderRunnable, 3000);
+            }
+        });
+
         startAutoScroll();
     }
 
     private void startAutoScroll() {
-        sliderHandler.postDelayed(sliderRunnable, 2500);
+        sliderHandler.postDelayed(sliderRunnable, 3000);
     }
 
     private void stopAutoScroll() {

@@ -17,6 +17,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import com.example.clbootstrap.R;
 import com.example.clbootstrap.campus_choice.CampusChoiceActivity;
+import com.example.clbootstrap.timeline.TimelineActivity;
 import com.example.clbootstrap.views.TimerView;
 
 public class OtpVerificationActivity extends AppCompatActivity {
@@ -142,11 +143,45 @@ public class OtpVerificationActivity extends AppCompatActivity {
             otp.append(digit.getText().toString());
         }
         
-        // TODO: Add actual OTP verification here
-        String firstName = getIntent().getStringExtra("first_name");
-        startActivity(new Intent(this, CampusChoiceActivity.class)
-            .putExtra("first_name", firstName));
-        finish(); // Close OTP screen
+        boolean isTestFlow = getIntent().getBooleanExtra("is_test_flow", false);
+        
+        if (isTestFlow) {
+            // Special test flow
+            if (otp.toString().equals("368368")) {
+                // Navigate to timeline screen
+                Intent intent = new Intent(this, TimelineActivity.class);
+                startActivity(intent);
+                finish();
+            } else {
+                // Show error for test flow
+                clearOtpFields();
+                showErrorDialog("Please enter test OTP: 368368");
+            }
+        } else {
+            // Normal flow - proceed to campus choice
+            String firstName = getIntent().getStringExtra("first_name");
+            Intent intent = new Intent(this, CampusChoiceActivity.class);
+            intent.putExtra("first_name", firstName);
+            startActivity(intent);
+            finish();
+        }
+    }
+
+    private void clearOtpFields() {
+        for (EditText digit : otpDigits) {
+            digit.setText("");
+        }
+        otpDigits[0].requestFocus();
+        proceedButton.setEnabled(false);
+        proceedButton.setAlpha(0.5f);
+    }
+
+    private void showErrorDialog(String message) {
+        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this);
+        builder.setTitle("Invalid OTP")
+               .setMessage(message)
+               .setPositiveButton("OK", (dialog, which) -> dialog.dismiss())
+               .show();
     }
 
     @Override

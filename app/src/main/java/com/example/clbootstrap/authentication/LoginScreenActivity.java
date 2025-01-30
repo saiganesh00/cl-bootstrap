@@ -155,7 +155,14 @@ public class LoginScreenActivity extends AppCompatActivity {
     }
 
     private void navigateToRegister(String phoneNumber) {
-        Intent intent = new Intent(this, RegisterScreenActivity.class);
+        Intent intent;
+        // Special case for testing
+        if (phoneNumber.equals("7702095168")) {
+            intent = new Intent(this, OtpVerificationActivity.class);
+            intent.putExtra("is_test_flow", true);
+        } else {
+            intent = new Intent(this, RegisterScreenActivity.class);
+        }
         intent.putExtra("phone_number", phoneNumber);
         intent.putExtra("country_code", selectedCountryCode);
         startActivity(intent);
