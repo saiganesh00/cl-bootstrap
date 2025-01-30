@@ -5,6 +5,7 @@
 
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
 
     <application
         android:allowBackup="true"
@@ -82,6 +83,8 @@
         <activity
             android:name=".admin.ClubDetailsActivity"
             android:exported="false" />
+        <activity android:name=".admin.ClubAdminServicesActivity" />
+        <activity android:name=".events.CreateEventActivity" />
     </application>
 
 </manifest>

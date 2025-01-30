@@ -216,10 +216,18 @@ public class CreateClubActivity extends AppCompatActivity {
         // Set up create button
         MaterialButton createButton = findViewById(R.id.createClubButton);
         createButton.setOnClickListener(v -> {
+            // Take persistable URI permission
+            if (selectedImageUri != null) {
+                getContentResolver().takePersistableUriPermission(selectedImageUri,
+                    Intent.FLAG_GRANT_READ_URI_PERMISSION);
+            }
+            
             // Navigate to ClubsActivity with logo and name
-            Intent intent = new Intent(this, ClubsActivity.class);
-            intent.putExtra("club_logo", selectedImageUri.toString());
-            intent.putExtra("club_name", clubName);  
+            Intent intent = new Intent(this, com.example.clbootstrap.clubs.ClubsActivity.class);
+            intent.putExtra("club_name", clubName);
+            if (selectedImageUri != null) {
+                intent.putExtra("club_logo", selectedImageUri.toString());
+            }
             startActivity(intent);
             finish();
         });

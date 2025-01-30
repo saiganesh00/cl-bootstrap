@@ -160,8 +160,10 @@ public class OtpVerificationActivity extends AppCompatActivity {
         } else {
             // Normal flow - proceed to campus choice
             String firstName = getIntent().getStringExtra("first_name");
+            String countryCode = getIntent().getStringExtra("country_code");
             Intent intent = new Intent(this, CampusChoiceActivity.class);
             intent.putExtra("first_name", firstName);
+            intent.putExtra("country_code", countryCode);
             startActivity(intent);
             finish();
         }

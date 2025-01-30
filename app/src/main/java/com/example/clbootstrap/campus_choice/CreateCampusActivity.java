@@ -19,6 +19,8 @@ import com.example.clbootstrap.helpers.CountryHelper;
 import com.example.clbootstrap.models.Country;
 import com.example.clbootstrap.payment.PaymentCheckoutActivity;
 import com.google.android.material.textfield.TextInputEditText;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class CreateCampusActivity extends AppCompatActivity {
@@ -56,11 +58,8 @@ public class CreateCampusActivity extends AppCompatActivity {
         // Set up back button
         backButton.setOnClickListener(v -> finish());
 
-        // Set up states based on country code
-        Country country = CountryHelper.getCountryByCode(this, countryCode);
-        if (country != null) {
-            updateStates(country);
-        }
+        // Set up state dropdown
+        setupStateDropdown();
 
         // Set up terms checkbox click listener
         termsCheckbox.setOnClickListener(v -> {
@@ -90,11 +89,31 @@ public class CreateCampusActivity extends AppCompatActivity {
         });
     }
 
-    private void updateStates(Country country) {
-        List<String> states = country.getStates();
-        ArrayAdapter<String> stateAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_dropdown_item_1line, states);
-        stateInput.setAdapter(stateAdapter);
+    private void setupStateDropdown() {
+        List<String> states = new ArrayList<>();
+        
+        // Get states based on country code
+        if (countryCode.equals("91")) { // India
+            states.addAll(Arrays.asList(
+                "Andhra Pradesh", "Arunachal Pradesh", "Assam", "Bihar", 
+                "Chhattisgarh", "Goa", "Gujarat", "Haryana", "Himachal Pradesh",
+                "Jharkhand", "Karnataka", "Kerala", "Madhya Pradesh", "Maharashtra",
+                "Manipur", "Meghalaya", "Mizoram", "Nagaland", "Odisha", "Punjab",
+                "Rajasthan", "Sikkim", "Tamil Nadu", "Telangana", "Tripura",
+                "Uttar Pradesh", "Uttarakhand", "West Bengal"
+            ));
+        } else {
+            // Add other countries' states here
+            Toast.makeText(this, "States for selected country not available", Toast.LENGTH_SHORT).show();
+        }
+
+        // Create and set the adapter
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(
+            this,
+            android.R.layout.simple_dropdown_item_1line,
+            states
+        );
+        stateInput.setAdapter(adapter);
     }
 
     private void showTermsDialog() {

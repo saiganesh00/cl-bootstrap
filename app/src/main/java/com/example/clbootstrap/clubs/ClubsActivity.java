@@ -8,17 +8,29 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager2.widget.ViewPager2;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.clbootstrap.models.Club;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.card.MaterialCardView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.clbootstrap.R;
 import com.example.clbootstrap.timeline.TimelineActivity;
 import com.example.clbootstrap.admin.AdminGridActivity;
+import com.example.clbootstrap.admin.CreateClubActivity;
+import com.example.clbootstrap.adapters.ClubAdapter;
+
+import android.net.Uri;
 
 public class ClubsActivity extends AppCompatActivity {
     private BottomNavigationView bottomNavigation;
     private ViewPager2 imageSlider;
     private Handler sliderHandler;
     private Runnable sliderRunnable;
+    private ClubAdapter clubAdapter;
+    private RecyclerView clubsRecyclerView;
+    
     private final int[] images = {
         R.drawable.welcome_image,
         R.drawable.create_club
@@ -29,12 +41,24 @@ public class ClubsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_clubs);
 
+        // Initialize views
         bottomNavigation = findViewById(R.id.bottomNavigation);
         imageSlider = findViewById(R.id.imageSlider);
         MaterialCardView adminServicesCard = findViewById(R.id.adminServicesCard);
+        FloatingActionButton createClubFab = findViewById(R.id.createClubFab);
+        clubsRecyclerView = findViewById(R.id.clubsRecyclerView);
         
+        // Setup components
         setupBottomNavigation();
         setupImageSlider();
+        setupRecyclerView();
+        
+        // Set up FAB
+        createClubFab.setVisibility(View.VISIBLE);
+        createClubFab.setOnClickListener(v -> {
+            Intent intent = new Intent(this, CreateClubActivity.class);
+            startActivity(intent);
+        });
 
         // Set click listener for admin services card
         if (adminServicesCard != null) {
@@ -44,6 +68,41 @@ public class ClubsActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             });
         }
+
+        // Check for new club data from intent
+        handleNewClubData(getIntent());
+    }
+
+    private void setupRecyclerView() {
+        clubsRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        clubAdapter = new ClubAdapter();
+        clubsRecyclerView.setAdapter(clubAdapter);
+    }
+
+    private void handleNewClubData(Intent intent) {
+        if (intent != null) {
+            String clubName = intent.getStringExtra("club_name");
+            String logoUriStr = intent.getStringExtra("club_logo");
+            
+            if (clubName != null) {
+                Uri logoUri = null;
+                if (logoUriStr != null) {
+                    try {
+                        logoUri = Uri.parse(logoUriStr);
+                    } catch (Exception e) {
+                        // If URI parsing fails, leave it as null
+                    }
+                }
+                Club newClub = new Club(clubName, "", "", logoUri);
+                clubAdapter.addClub(newClub);
+            }
+        }
+    }
+
+    @Override
+    protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        handleNewClubData(intent);
     }
 
     private void setupImageSlider() {

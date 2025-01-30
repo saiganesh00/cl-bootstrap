@@ -1,20 +1,12 @@
 package com.example.clbootstrap.admin;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.appcompat.app.AppCompatActivity;
-
+import com.google.android.material.card.MaterialCardView;
 import com.example.clbootstrap.R;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
 
 public class ClubDetailsActivity extends AppCompatActivity {
     
@@ -23,29 +15,23 @@ public class ClubDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_club_details);
 
-        // Get club data from intent
+        // Get club name from intent
         String clubName = getIntent().getStringExtra("club_name");
-        String logoUriStr = getIntent().getStringExtra("club_logo");
 
-        // Set club name
+        // Initialize views
+        ImageView clubBanner = findViewById(R.id.clubBanner);
         TextView clubNameView = findViewById(R.id.clubName);
-        clubNameView.setText(clubName);
+        MaterialCardView adminServicesCard = findViewById(R.id.adminServicesCard);
 
-        // Set club banner
-        if (logoUriStr != null) {
-            ImageView clubBanner = findViewById(R.id.clubBanner);
-            try {
-                Uri logoUri = Uri.parse(logoUriStr);
-                InputStream inputStream = getContentResolver().openInputStream(logoUri);
-                Bitmap bitmap = BitmapFactory.decodeStream(inputStream);
-                if (bitmap != null) {
-                    clubBanner.setImageBitmap(bitmap);
-                }
-            } catch (FileNotFoundException e) {
-                Toast.makeText(this, "Unable to load club image", Toast.LENGTH_SHORT).show();
-            } catch (SecurityException e) {
-                Toast.makeText(this, "Permission denied to access image", Toast.LENGTH_SHORT).show();
-            }
-        }
+        // Set club name and banner
+        clubNameView.setText(clubName);
+        clubBanner.setImageResource(R.drawable.welcome_image);
+
+        // Set up admin services card click
+        adminServicesCard.setOnClickListener(v -> {
+            Intent intent = new Intent(this, ClubAdminServicesActivity.class);
+            intent.putExtra("club_name", clubName);
+            startActivity(intent);
+        });
     }
 }

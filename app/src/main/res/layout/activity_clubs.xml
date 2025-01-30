@@ -172,7 +172,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="12dp"
-                                    android:text="Club Management"
+                                    android:text="Events"
                                     android:textColor="#FFFFFF"
                                     android:textSize="16sp"
                                     android:fontFamily="sans-serif-medium" />
@@ -204,10 +204,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:visibility="gone"
-        android:layout_margin="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="80dp"
         android:src="@drawable/ic_add"
-        app:backgroundTint="#6b3cf3"/>
+        app:backgroundTint="#6b3cf3"
+        app:tint="#FFFFFF"
+        app:elevation="6dp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"

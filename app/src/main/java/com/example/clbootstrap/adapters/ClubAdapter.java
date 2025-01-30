@@ -1,6 +1,7 @@
 package com.example.clbootstrap.adapters;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,14 +28,14 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ClubViewHolder
     @NonNull
     @Override
     public ClubViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_club_card, parent, false);
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.item_club_card, parent, false);
         return new ClubViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ClubViewHolder holder, int position) {
-        Club club = clubs.get(position);
-        holder.bind(club);
+        holder.bind(clubs.get(position));
     }
 
     @Override
@@ -48,10 +49,10 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ClubViewHolder
     }
 
     static class ClubViewHolder extends RecyclerView.ViewHolder {
-        ImageView clubLogo;
-        TextView clubName;
+        private final ImageView clubLogo;
+        private final TextView clubName;
 
-        ClubViewHolder(View itemView) {
+        ClubViewHolder(@NonNull View itemView) {
             super(itemView);
             clubLogo = itemView.findViewById(R.id.clubLogo);
             clubName = itemView.findViewById(R.id.clubName);
@@ -59,16 +60,25 @@ public class ClubAdapter extends RecyclerView.Adapter<ClubAdapter.ClubViewHolder
 
         void bind(Club club) {
             clubName.setText(club.getName());
+            
+            // Set default club logo
+            clubLogo.setImageResource(R.drawable.ic_club_placeholder);
+            
+            // If we have a logo URI, try to set it
             if (club.getLogoUri() != null) {
-                clubLogo.setImageURI(club.getLogoUri());
+                try {
+                    clubLogo.setImageURI(club.getLogoUri());
+                } catch (Exception e) {
+                    // Keep default logo if there's an error
+                    clubLogo.setImageResource(R.drawable.ic_club_placeholder);
+                }
             }
 
             // Set click listener
             itemView.setOnClickListener(v -> {
-                Intent intent = new Intent(itemView.getContext(), ClubDetailsActivity.class);
+                Intent intent = new Intent(v.getContext(), ClubDetailsActivity.class);
                 intent.putExtra("club_name", club.getName());
-                intent.putExtra("club_logo", club.getLogoUri().toString());
-                itemView.getContext().startActivity(intent);
+                v.getContext().startActivity(intent);
             });
         }
     }

@@ -53,7 +53,7 @@ public class RegisterScreenActivity extends AppCompatActivity {
         findViewById(R.id.signUpButton).setOnClickListener(v -> {
             if (validateInputs()) {
                 // Create intent and pass data
-                Intent intent = new Intent(this, CampusChoiceActivity.class);
+                Intent intent = new Intent(this, OtpVerificationActivity.class);
                 intent.putExtra("first_name", firstNameInput.getText().toString().trim());
                 intent.putExtra("last_name", lastNameInput.getText().toString().trim());
                 intent.putExtra("mobile", phoneInput.getText().toString().trim());

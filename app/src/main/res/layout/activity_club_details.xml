@@ -253,7 +253,7 @@
         </androidx.cardview.widget.CardView>
 
         <!-- Admin Services Card -->
-        <androidx.cardview.widget.CardView
+        <com.google.android.material.card.MaterialCardView
             android:id="@+id/adminServicesCard"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -267,22 +267,25 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:background="#6b3cf3">
 
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
                     android:src="@drawable/ic_admin"
-                    android:tint="#6200EE"/>
+                    android:tint="#FFFFFF"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
                     android:text="Admin Services"
+                    android:textColor="#FFFFFF"
                     android:textSize="16sp"/>
             </LinearLayout>
-        </androidx.cardview.widget.CardView>
+
+        </com.google.android.material.card.MaterialCardView>
 
     </GridLayout>
 
